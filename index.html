@@ -4,17 +4,45 @@
     </head>
     <body>
         <div class="queryForm">
+                <form class="login" id="queryForm" onsubmit="queryBooksAPI(event)">
+                Enter Query: <input type="text" id="queryInput" />
+                <br/>
+                <input type="submit" />
+            </form>
         </div>
-        <div class="resultsSection>
-            <div class="queryDataSection>
+        <div class="resultsSection">
+            <div class="queryDataSection">
             </div>
             <div class="bookResults">
             </div>
         </div>
     </body>
     <script>
+        function queryBooksAPI(event){
+            console.log('in form submit: ' + event);
+            event.preventDefault();
+            const queryInput = document.querySelector("#queryInput");
+            if(queryInput.value === ""){ 
+                queryInput.insertAdjacentHTML("afterend", "<label class=\"queryError\">You must enter content into the field to query the books API</label>")
+            }else{
+                if(document.querySelector(".queryError")){
+                const errorElement = document.querySelector('.queryError');
+                errorElement.remove();
+                }
+
+                //we're good let's fetch data now.
+                console.log('let us continue the quest!');
+                //let's hardcode harry potter first!
+                fetch('https://www.googleapis.com/books/v1/volumes?q=harry+potter') // <-- gotta paramaterize the query too!
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(myJson) {
+                        console.log(JSON.stringify(myJson));
+                    });
+            }
+        }
         /* TO DO:
-        - Take Form input, do basic check for content then query API
         - Loop through results and display then in book results
         - Add extra data in query data section 
         - Add show/hide for description data
