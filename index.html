@@ -39,18 +39,32 @@
                     })
                     .then(function(myJson) {
                         var books = myJson.items;
-                        for (var i = 0; i < books.length(); i++) {
+                        for (var i = 0; i < books.length; i++) {
                             //console.log(books[i]);
                             console.log(books[i].volumeInfo.title);                     
                             console.log(books[i].volumeInfo.description);
                             console.log(books[i].volumeInfo.authors);
+
+                            const authors = books[i].volumeInfo.authors;
+                            let bookAuthorsString = "";
+                            
+                            for(var x = 0; i<authors.length; x++){
+                                bookAuthorsString += authors[x] + " ";
+                            }
+
+                            const bookTitle = books[i].volumeInfo.title;
+                            const bookDescription = books[i].volumeInfo.description;
+
+                            const queryBookResults = document.querySelector('.bookResults');
+                            queryInput.insertAdjacentHTML("afterend", "<span class=\"authors\">" + bookAuthorsString + "</span> - <span class=\"title\">"+ bookTitle +"</span>");
+
+                            
                         }
                         console.log(JSON.stringify(myJson));
                     });
             }
         }
         /* TO DO:
-        - Loop through results and display then in book results
         - Add extra data in query data section 
         - Add show/hide for description data
         - If results set larger than 20 items paginate content
