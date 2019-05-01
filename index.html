@@ -19,7 +19,6 @@
     </body>
     <script>
         function queryBooksAPI(event){
-           // console.log('in form submit: ' + event);
             event.preventDefault();
             const queryInput = document.querySelector("#queryInput");
             if(queryInput.value === ""){ 
@@ -40,8 +39,7 @@
                     .then(function(myJson) {
                         var books = myJson.items;
                         for (var i = 0; i < books.length; i++) {
-                            console.log('something' + i);
-                             console.log(books[i].volumeInfo.title);                     
+                            // console.log(books[i].volumeInfo.title);                     
                             // console.log(books[i].volumeInfo.description);
                             // console.log(books[i].volumeInfo.authors);
 
@@ -65,7 +63,6 @@
 
                             
                         }
-                        //console.log(JSON.stringify(myJson));
                     });
             }
         }
