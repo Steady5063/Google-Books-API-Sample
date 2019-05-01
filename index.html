@@ -19,6 +19,7 @@
     </body>
     <script>
         function queryBooksAPI(event){
+           // console.log('in form submit: ' + event);
             event.preventDefault();
             const queryInput = document.querySelector("#queryInput");
             if(queryInput.value === ""){ 
@@ -38,8 +39,10 @@
                     })
                     .then(function(myJson) {
                         var books = myJson.items;
-                        for (var i = 0; i < books.length; i++) {
-                            // console.log(books[i].volumeInfo.title);                     
+
+                        const queryBookResults = document.querySelector('.resultsSection');
+                        queryBookResults.innerHTML = "";
+                        for (var i = 0; i < books.length; i++) {                    
                             // console.log(books[i].volumeInfo.description);
                             // console.log(books[i].volumeInfo.authors);
 
@@ -47,7 +50,6 @@
                             let bookAuthorsString = "";
 
                             for (var a = 0; a < authors.length; a++) {
-                                console.log(authors[a]);
                                 if(a == authors.length-1){
                                     bookAuthorsString += authors[a];
                                 }else{
@@ -58,7 +60,6 @@
                             const bookTitle = books[i].volumeInfo.title;
                             const bookDescription = books[i].volumeInfo.description;
 
-                            const queryBookResults = document.querySelector('.resultsSection');
                             queryBookResults.insertAdjacentHTML("beforeend",  "<span class=\"authors\">" + bookAuthorsString + "</span> - <span class=\"title\">"+ bookTitle +"</span> <a>more</a><br/><span class=\"desc\">"+bookDescription+"</span><br/><br/>");
 
                             
